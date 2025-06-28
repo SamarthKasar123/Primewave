@@ -11,9 +11,6 @@ Primewave is a professional website for a video editing agency built with the ME
 - Client registration and login system
 - MongoDB Atlas integration for data storage
 
-## Login Credentials for Managers
-- Username: siddharth | Password: Siddharth@123
-- Username: abhinav | Password: Abhinav@123
 
 ## Tech Stack
 - **Frontend**: React.js, Bootstrap, Axios
