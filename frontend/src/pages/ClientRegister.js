@@ -128,6 +128,7 @@ const ClientRegister = () => {
                       name="password"
                       value={password}
                       onChange={handleChange}
+                      autoComplete="new-password"
                       required
                     />
                   </div>
@@ -141,6 +142,7 @@ const ClientRegister = () => {
                       name="confirmPassword"
                       value={confirmPassword}
                       onChange={handleChange}
+                      autoComplete="new-password"
                       required
                     />
                   </div>

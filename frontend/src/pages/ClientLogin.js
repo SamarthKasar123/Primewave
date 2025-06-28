@@ -85,6 +85,7 @@ const ClientLogin = () => {
                     name="password"
                     value={password}
                     onChange={handleChange}
+                    autoComplete="current-password"
                     required
                   />
                 </div>
