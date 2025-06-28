@@ -72,6 +72,7 @@ const ManagerLogin = () => {
                     name="username"
                     value={username}
                     onChange={handleChange}
+                    autoComplete="username"
                     required
                   />
                 </div>
@@ -85,6 +86,7 @@ const ManagerLogin = () => {
                     name="password"
                     value={password}
                     onChange={handleChange}
+                    autoComplete="current-password"
                     required
                   />
                 </div>
