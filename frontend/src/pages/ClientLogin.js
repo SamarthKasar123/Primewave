@@ -72,6 +72,7 @@ const ClientLogin = () => {
                     name="email"
                     value={email}
                     onChange={handleChange}
+                    autoComplete="email"
                     required
                   />
                 </div>

@@ -100,6 +100,7 @@ const ClientRegister = () => {
                     name="email"
                     value={email}
                     onChange={handleChange}
+                    autoComplete="email"
                     required
                   />
                 </div>
