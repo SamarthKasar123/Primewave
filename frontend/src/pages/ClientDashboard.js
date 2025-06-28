@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import api from '../utils/api';
 import ProjectDetailModal from '../components/ProjectDetailModal';
+import { debugInfo } from '../debug';
 
 const ClientDashboard = () => {
   const { user } = useAuth();
@@ -47,6 +48,14 @@ const ClientDashboard = () => {
       console.log('Fetching client projects...');
       console.log('API base URL:', process.env.REACT_APP_API_URL);
       console.log('Current user:', user);
+      console.log('Debug info:', debugInfo);
+      
+      // Test if the issue is with the environment variable
+      if (process.env.NODE_ENV === 'production' && !process.env.REACT_APP_API_URL) {
+        console.error('REACT_APP_API_URL is not set in production!');
+        setError('Configuration error: API URL not set');
+        return;
+      }
       
       const res = await api.get('/projects/client/my-projects');
       console.log('Projects data received:', res.data);
