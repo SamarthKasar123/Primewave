@@ -32,8 +32,20 @@ const connectDB = async () => {
 connectDB();
 
 // Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/projects', require('./routes/projects'));
+console.log('Loading routes...');
+try {
+  app.use('/api/auth', require('./routes/auth'));
+  console.log('Auth routes loaded successfully');
+} catch (error) {
+  console.error('Error loading auth routes:', error.message);
+}
+
+try {
+  app.use('/api/projects', require('./routes/projects'));
+  console.log('Projects routes loaded successfully');
+} catch (error) {
+  console.error('Error loading projects routes:', error.message);
+}
 
 // Default route
 app.get('/', (req, res) => {
@@ -48,6 +60,29 @@ app.get('/api/health', (req, res) => {
     dbConnected: global.dbConnected || false,
     environment: process.env.NODE_ENV || 'development'
   });
+});
+
+// Debug route to list all registered routes
+app.get('/api/debug/routes', (req, res) => {
+  const routes = [];
+  app._router.stack.forEach(function(middleware) {
+    if(middleware.route) {
+      routes.push({
+        path: middleware.route.path,
+        methods: Object.keys(middleware.route.methods)
+      });
+    } else if(middleware.name === 'router') {
+      middleware.handle.stack.forEach(function(handler) {
+        if(handler.route) {
+          routes.push({
+            path: handler.route.path,
+            methods: Object.keys(handler.route.methods)
+          });
+        }
+      });
+    }
+  });
+  res.json({ routes, timestamp: new Date() });
 });
 
 // Start server
