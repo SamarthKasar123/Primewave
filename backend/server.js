@@ -34,18 +34,27 @@ connectDB();
 // Routes
 console.log('Loading routes...');
 try {
-  app.use('/api/auth', require('./routes/auth'));
+  const authRoutes = require('./routes/auth');
+  app.use('/api/auth', authRoutes);
   console.log('Auth routes loaded successfully');
 } catch (error) {
   console.error('Error loading auth routes:', error.message);
+  console.error('Stack:', error.stack);
 }
 
 try {
-  app.use('/api/projects', require('./routes/projects'));
+  const projectRoutes = require('./routes/projects');
+  app.use('/api/projects', projectRoutes);
   console.log('Projects routes loaded successfully');
 } catch (error) {
   console.error('Error loading projects routes:', error.message);
+  console.error('Stack:', error.stack);
 }
+
+// Test auth route
+app.post('/api/auth/test', (req, res) => {
+  res.json({ message: 'Auth route is working', timestamp: new Date() });
+});
 
 // Default route
 app.get('/', (req, res) => {
