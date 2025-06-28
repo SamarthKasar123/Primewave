@@ -183,6 +183,48 @@ app.post('/api/auth/client/register', async (req, res) => {
   }
 });
 
+// Manager register (for testing purposes)
+app.post('/api/auth/manager/register', async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+    
+    // Check if manager already exists
+    const existingManager = await Manager.findOne({ $or: [{ username }, { email }] });
+    if (existingManager) {
+      return res.status(400).json({ message: 'Manager already exists with this username or email' });
+    }
+    
+    // Create new manager
+    const manager = new Manager({
+      username,
+      email,
+      password
+    });
+    
+    await manager.save();
+    
+    // Generate token
+    const token = jwt.sign(
+      { id: manager._id, username: manager.username, role: 'manager' },
+      process.env.JWT_SECRET,
+      { expiresIn: '24h' }
+    );
+    
+    res.status(201).json({
+      token,
+      user: {
+        id: manager._id,
+        username: manager.username,
+        email: manager.email,
+        role: 'manager'
+      }
+    });
+  } catch (error) {
+    console.error('Manager registration error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Default route
 app.get('/', (req, res) => {
   res.send('Welcome to Primewave API!');
