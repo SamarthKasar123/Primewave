@@ -213,21 +213,6 @@ const ManagerDashboard = () => {
       setActionInProgress({...actionInProgress, [projectId + '_reject_extension']: false});
     }
   };
-
-  // Function to handle project completion
-  const handleCompleteProject = async (projectId) => {
-    try {
-      setActionInProgress({...actionInProgress, [projectId + '_complete']: true});
-      await api.put(`/projects/${projectId}/status`, { status: 'completed' });
-      showNotification('Project marked as completed!', 'success');
-      fetchProjects();
-    } catch (error) {
-      console.error('Error completing project:', error);
-      showNotification('Failed to complete project: ' + (error.response?.data?.message || error.message), 'error');
-    } finally {
-      setActionInProgress({...actionInProgress, [projectId + '_complete']: false});
-    }
-  };
   
   // Function to open the submission form modal
   const openSubmissionForm = (project) => {

@@ -4,7 +4,7 @@ import api from '../utils/api';
 import ProjectDetailModal from '../components/ProjectDetailModal';
 
 const ClientDashboard = () => {
-  const { user, token } = useAuth();
+  const { user } = useAuth();
   const [projects, setProjects] = useState([]);
   const [stats, setStats] = useState({
     active: 0,
@@ -179,7 +179,7 @@ const ClientDashboard = () => {
     e.preventDefault();
     
     try {
-      const res = await api.patch(
+      await api.patch(
         `/projects/${selectedProject._id}/respond-extension`,
         extensionResponse
       );
@@ -682,12 +682,13 @@ const ClientDashboard = () => {
                         <tbody>
                           {projects.map((project) => (                              <tr key={project._id}>
                                 <td>
-                                  <a href="#" onClick={(e) => {
-                                    e.preventDefault();
-                                    viewProjectDetails(project);
-                                  }}>
+                                  <button 
+                                    className="btn btn-link p-0 text-start text-decoration-none"
+                                    onClick={() => viewProjectDetails(project)}
+                                    style={{border: 'none', background: 'none', color: 'inherit'}}
+                                  >
                                     {project.title}
-                                  </a>
+                                  </button>
                                 </td>
                                 <td>{project.workType === 'short' ? 'Short Video' : 'Long Video'}</td>
                                 <td>{formatDate(project.createdAt)}</td>

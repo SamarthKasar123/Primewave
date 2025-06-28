@@ -48,4 +48,6 @@ export const showConfirmation = (message, onConfirm, onCancel) => {
   }
 };
 
-export default { showNotification, showConfirmation };
+const notificationUtils = { showNotification, showConfirmation };
+
+export default notificationUtils;
