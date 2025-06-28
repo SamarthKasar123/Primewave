@@ -45,6 +45,8 @@ const ClientDashboard = () => {
       setLoading(true);
       setError(null);
       console.log('Fetching client projects...');
+      console.log('API base URL:', process.env.REACT_APP_API_URL);
+      console.log('Current user:', user);
       
       const res = await api.get('/projects/client/my-projects');
       console.log('Projects data received:', res.data);

@@ -9,6 +9,8 @@ const api = axios.create({
   timeout: 10000 // 10 seconds timeout
 });
 
+console.log('API initialized with baseURL:', process.env.REACT_APP_API_URL || 'http://localhost:5000/api');
+
 // Request interceptor - add auth token
 api.interceptors.request.use(
   (config) => {
