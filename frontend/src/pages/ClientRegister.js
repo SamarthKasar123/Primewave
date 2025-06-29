@@ -39,12 +39,15 @@ const ClientRegister = () => {
     
     try {
       // Make API request to register endpoint
-      const response = await axios.post('http://localhost:5000/api/auth/client/register', {
-        name,
-        email,
-        password,
-        whatsappNumber
-      });
+     const response = await axios.post(
+  `${process.env.REACT_APP_API_URL}/api/auth/client/register`,
+  {
+    name,
+    email,
+    password,
+    whatsappNumber,
+  }
+);
       
       // Store user data and token
       login(response.data.user, response.data.token);
