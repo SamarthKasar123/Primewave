@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import { useAuth } from '../contexts/AuthContext';
 
 const ClientRegister = () => {
@@ -39,15 +39,12 @@ const ClientRegister = () => {
     
     try {
       // Make API request to register endpoint
-     const response = await axios.post(
-  `${process.env.REACT_APP_API_URL}/api/auth/client/register`,
-  {
-    name,
-    email,
-    password,
-    whatsappNumber,
-  }
-);
+      const response = await api.post('/auth/client/register', {
+        name,
+        email,
+        password,
+        whatsappNumber,
+      });
       
       // Store user data and token
       login(response.data.user, response.data.token);
